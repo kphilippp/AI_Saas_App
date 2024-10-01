@@ -1,13 +1,22 @@
+import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
-client = OpenAI(api_key='your-api-key')
+load_dotenv()
 
-  # You need to replace 'your-api-key' with your actual OpenAI API key
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.getenv("OPENAI_API_KEY"),
+)
 
-completion = client.chat.completions.create(model="gpt-4",  # 'gpt-4o-mini' doesn't exist, so you can use 'gpt-4' or 'gpt-3.5-turbo'
-messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Write a haiku about recursion in programming."}
-])
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Say this is a test",
+        }
+    ],
+    model="gpt-3.5-turbo",
+)
 
-print(completion.choices[0].message.content)
+print(chat_completion)
