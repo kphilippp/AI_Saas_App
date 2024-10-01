@@ -47,7 +47,7 @@ def getBrandingSnippet(argument: str) -> str:
 
 # function makes eywords from the branding snippet
 def getKeywords(argument: str) -> List[str]:
-    prompt = f"Generate single branding keywords pertaing to this snippet: {argument}"
+    prompt = f"Generate at least 5 single branding keywords pertaing to this snippet: {argument}"
     response = client.chat.completions.create(
     messages=[
         {
@@ -61,7 +61,7 @@ def getKeywords(argument: str) -> List[str]:
     keywordsString = response.choices[0].message.content
 
     # delimit the words
-    delimiter = ",|\n|;|-"
+    delimiter = ",|\n|;|-|[1-9]."
     keywords = re.split(delimiter, keywordsString)
     keywords = [k.lower().strip() for k in keywords]
     keywords = [k for k in keywords if len(k) > 0]
