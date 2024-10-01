@@ -1,12 +1,28 @@
 import os
+from typing import List
 # imports for the ai
 from openai import OpenAI
 from dotenv import load_dotenv
 
-#imports for the main initalization
+#imports for the main initalization argument parsing
 import argparse
 
+#imports to configure response messages from gpt
+import re
+
+
+# Description
+# currently what this does is take user input in main function
+# then it passes than to validateInput to make sure its not too long
+# then it passes the input to getBrandingSnippet to get a branding snipper
+# then it passes it to getKeywords to get a list of the keywords
+
 load_dotenv()
+
+
+
+MAX_INPUT_LENGTH = 20
+
 
 # This is the openai client configuration
 client = OpenAI(
@@ -15,8 +31,8 @@ client = OpenAI(
 
 
 # Below is configuring the prompt you want to send GPT 3
-def useGPT(argument):
-    prompt = f"Give me a random sentence containing {argument} words"
+def getBrandingSnippet(argument: str) -> str:
+    prompt = f"Generate a branding snippet for {argument}"
     response = client.chat.completions.create(
     messages=[
         {
@@ -29,6 +45,34 @@ def useGPT(argument):
 
     return response.choices[0].message.content
 
+# function makes eywords from the branding snippet
+def getKeywords(argument: str) -> List[str]:
+    prompt = f"Generate single branding keywords pertaing to this snippet: {argument}"
+    response = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": prompt,
+        }
+    ],
+    model="gpt-3.5-turbo",
+    )
+
+    keywordsString = response.choices[0].message.content
+
+    # delimit the words
+    delimiter = ",|\n|;|-"
+    keywords = re.split(delimiter, keywordsString)
+    keywords = [k.lower().strip() for k in keywords]
+    keywords = [k for k in keywords if len(k) > 0]
+
+    return keywords
+
+# function makes sure the input is not too long, safes us from wasting credits and protects us from malicious GPT usage
+def validateInput(input: str) -> bool:
+    if (len(input) >= MAX_INPUT_LENGTH):
+        return False
+    return True
 
 # 2) This is the main function that takes retrieves inputs using argparse library
 # The argument is then passed into gpt to get a response
@@ -39,9 +83,16 @@ def main():
     parser.add_argument("--input", "-i", type=str, required=True)
     args = parser.parse_args()
     userInput = args.input
+    print ("INPUT : " + userInput)
 
-    print(useGPT(userInput))
-
+    if validateInput(userInput):
+        brandingSnippet = getBrandingSnippet(userInput)
+        brandingKeywords = getKeywords(brandingSnippet)
+        print("\nBranding Snippet: " + brandingSnippet)
+        for word in brandingKeywords:
+            print("\nKey Words: " + word + ", ")
+    else:
+        raise ValueError("Input is greater than {MAX_INPUT_LENGTH} characters, please validate input") 
     pass
 
 
