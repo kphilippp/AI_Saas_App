@@ -38,5 +38,5 @@ def getSnippetKeywords(msg: str):
 # Has its own validate input length, keeping related things together. The chat gpt validation might be redundant but we will look at that later
 def validateInputLength(input: str):
   if (len(input) > MAX_INPUT_LENGTH):
-    raise HTTPException(status_code = 404, detail=f"Input length is over {MAX_INPUT_LENGTH}")
+    raise HTTPException(status_code = 400, detail=f"Input length is over {MAX_INPUT_LENGTH}")
   return True
