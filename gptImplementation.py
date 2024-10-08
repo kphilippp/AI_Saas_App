@@ -92,7 +92,7 @@ def main():
         for word in brandingKeywords:
             print("\nKey Words: " + word + ", ")
     else:
-        raise ValueError("Input is greater than {MAX_INPUT_LENGTH} characters, please validate input") 
+        raise ValueError(f"Input is greater than {MAX_INPUT_LENGTH} characters, please validate input") 
     pass
 
 
