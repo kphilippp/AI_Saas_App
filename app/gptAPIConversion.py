@@ -1,5 +1,4 @@
 from typing import Union
-
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 
@@ -8,6 +7,8 @@ from gptImplementation import MAX_INPUT_LENGTH, getBrandingSnippet, getKeywords
 app = FastAPI()
 
 handler = Mangum(app)
+
+#testing if deploy working right 
 
 # there are two paths that recieves requests "/" and "/items/{item_id}"
 # both paths do GET HTTP Method 
