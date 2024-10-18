@@ -1,4 +1,3 @@
-from typing import Union
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 
