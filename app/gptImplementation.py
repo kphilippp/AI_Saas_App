@@ -2,7 +2,7 @@ import os
 from typing import List
 # imports for the ai
 from openai import OpenAI
-from dotenv import load_dotenv
+
 
 #imports for the main initalization argument parsing
 import argparse
@@ -16,8 +16,6 @@ import re
 # then it passes than to validateInput to make sure its not too long
 # then it passes the input to getBrandingSnippet to get a branding snipper
 # then it passes it to getKeywords to get a list of the keywords
-
-load_dotenv()
 
 
 

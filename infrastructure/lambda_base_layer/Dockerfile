@@ -1,20 +1,33 @@
 FROM amazonlinux:2
-# Install Python
-RUN yum install -y python37 && \ 
-    yum install -y python3-pip && \ 
-    yum install -y zip && \ 
+
+# Enable Amazon Linux extras and install Python 3.8
+RUN yum install -y amazon-linux-extras && \
+    amazon-linux-extras enable python3.8 && \
+    yum install -y python3.8 python3-pip zip && \
     yum clean all
 
-# Set up PIP and Venv
-RUN python3.7 -m pip install --upgrade pip && \ 
-    python3.7 -m pip install virtualenv
-RUN python3.7 -m venv base
-RUN source base/bin/activate
+# Create symbolic links so the commands point to the right version
+RUN ln -sf /usr/bin/python3.8 /usr/bin/python && \
+    ln -sf /usr/bin/python3.8 /usr/bin/python3
 
-# Install dependencies
+# Verify Python version
+RUN python3 --version
+
+# Set up PIP and create a virtual environment
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install virtualenv && \
+    python3 -m venv base && \
+    source base/bin/activate
+
+# Install dependencies from requirements.txt to the deployment package
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt -t ./python
 
-# Zip it up for deployment.
+# Install pydantic-core for a specific platform
+RUN pip install pydantic-core --platform manylinux2014_x86_64 -t ./python --only-binary=:all:
+
+# Zip it up for deployment
 RUN zip -r layer.zip ./python/
-ENTRYPOINT ["/bin/bash", "-1"]
+
+# Set ENTRYPOINT
+ENTRYPOINT ["/bin/bash", "-l"]
