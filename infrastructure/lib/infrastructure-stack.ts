@@ -24,5 +24,13 @@ export class InfrastructureStack extends cdk.Stack {
         OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
       },
     });
+
+    const gptAppAPIGateway = new apiGateway.RestApi(this, "RestApi", {
+      restApiName: "AI Saas App API",
+    });
+
+    gptAppAPIGateway.root.addProxy({
+      defaultIntegration: new apiGateway.LambdaIntegration(apiLambda),
+    });
   }
 }
