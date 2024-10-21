@@ -1,12 +1,19 @@
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
-
+from fastapi.middleware.cors import CORSMiddleware
 from gptImplementation import MAX_INPUT_LENGTH, getBrandingSnippet, getKeywords
 
 app = FastAPI()
 
 handler = Mangum(app)
 
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
 #testing if deploy working right 
 
 # there are two paths that recieves requests "/" and "/items/{item_id}"
