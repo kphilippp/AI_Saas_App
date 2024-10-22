@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+// Importing the custom fonts
+const gambetta = localFont({
+  src: "./fonts/Gambetta-Variable.ttf",
+  variable: "--font-gambetta", // Define a CSS variable to use in the global stylesheet
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+const generalSans = localFont({
+  src: "./fonts/GeneralSans-Variable.ttf",
+  variable: "--font-gs", // Define a CSS variable to use in the global stylesheet
   weight: "100 900",
 });
 
@@ -25,8 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${gambetta.variable} ${generalSans.variable} antialiased`}
       >
         {children}
       </body>

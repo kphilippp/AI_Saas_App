@@ -7,8 +7,16 @@ interface FormProps {
 const Form: React.FC<FormProps> = (props) => {
   return (
     <div className="flex flex-col justify-evenly items-center h-[40%] w-[450px]  bg-white p-8 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold text-gray-800">SEOptimize </h1>
-      <p className="text-gray-600 text-center">
+      <h1
+        className="text-3xl font-bold text-gray-800"
+        style={{ fontFamily: "var(--font-gs)" }}
+      >
+        SEOptimize{" "}
+      </h1>
+      <p
+        className="text-gray-600 text-center"
+        style={{ fontFamily: "var(--font-gambetta)" }}
+      >
         Having a hard time thinking about keywords to help improve your brands
         SEO optimization? You've come to the right place
       </p>
