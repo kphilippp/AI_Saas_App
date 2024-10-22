@@ -23,15 +23,9 @@ const SaasApp: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-blue-500">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-        <Form
-          prompt={prompt}
-          setPrompt={setPrompt}
-          handleSubmit={handleSubmit}
-        />
-        {hasResults && <Results keywords={keywords} snippet={snippet} />}
-      </div>
+    <div className="h-screen w-screen flex items-center justify-center bg-[var(--pmBg)] gap-4">
+      <Form prompt={prompt} setPrompt={setPrompt} handleSubmit={handleSubmit} />
+      {hasResults && <Results keywords={keywords} snippet={snippet} />}
     </div>
   );
 };

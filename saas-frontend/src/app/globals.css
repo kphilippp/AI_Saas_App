@@ -11,6 +11,10 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --pmBg: rgb(28, 28, 28);
+    --sdBg: rgb(53, 133, 194);
+
+    --pmText: rgb(0, 0, 0);
   }
 }
 
