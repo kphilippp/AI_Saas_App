@@ -23,7 +23,13 @@ const SaasApp: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-[var(--pmBg)] gap-4">
+    <div
+      className="h-screen w-screen flex items-center justify-center bg-[var(--pmBg)] gap-4 overflow-hidden"
+      style={{
+        backgroundImage:
+          "radial-gradient(100% 100% at 50% 50%, var(--bgG2), var(--bgG1) 50%",
+      }}
+    >
       <Form prompt={prompt} setPrompt={setPrompt} handleSubmit={handleSubmit} />
       {hasResults && <Results keywords={keywords} snippet={snippet} />}
     </div>
