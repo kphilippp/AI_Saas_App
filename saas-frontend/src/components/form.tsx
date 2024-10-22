@@ -1,5 +1,4 @@
 import React from "react";
-import { handleClientScriptLoad } from "../../node_modules/next/script";
 
 interface FormProps {
   prompt: string;
