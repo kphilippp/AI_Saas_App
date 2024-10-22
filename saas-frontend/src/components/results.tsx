@@ -7,7 +7,7 @@ interface ResultsProps {
 
 const Results: React.FC<ResultsProps> = (props) => {
   return (
-    <div className="flex flex-col justify-evenly h-[40%] w-[450px]  bg-white p-8 rounded-lg shadow-lg">
+    <div className="flex flex-col justify-between h-[40%] w-[450px]  bg-white p-8 rounded-lg shadow-lg">
       <div>
         <h1
           className="font-bold text-lg text-[var(--pmText)] mb-3"
@@ -16,7 +16,7 @@ const Results: React.FC<ResultsProps> = (props) => {
           Brand Snippet
         </h1>
         <h2
-          className="text-md italic text-gray-800"
+          className="text-md  text-gray-800"
           style={{ fontFamily: "var(--font-gambetta)" }}
         >
           {props.snippet}
